@@ -1,3 +1,4 @@
+import collections
 import csv
 import subprocess
 
@@ -31,26 +32,26 @@ class Engine:
 
     @staticmethod
     def execute_command(command):
-        process = subprocess.run(command, capture_output=True)
+        process = subprocess.run(command, capture_output=True, shell=True)
         return process.returncode
 
 
 class AppManager:
     def __init__(self):
-        self.app_path = ''
+        self.AppInformation = collections.namedtuple('AppInformation', ['app_name', 'app_type', 'app_filename', 'app_url'])
         if its.on_windows:
             self.app_path = f'{spy.ambassador_path}\\data\\docs\\apps-information.csv'
 
     @property
-    def android_apps_path(self):
+    def apps_information(self):
         """
-        Returns a list of absolute paths to the apk(s) to be installed onto the Android device.
+        Returns a list of named tuple objects containing app information in the format app_name, app_type, app_paths, app_urls.
         """
         with open(self.app_path, 'r') as app_csv_file:
             csv_reader = csv.reader(app_csv_file)
-            app_paths = [f'{spy.ambassador_path}\\data\\apps\\android\\{app[2]}' for app in csv_reader if app[1] == 'android']
-        return app_paths
+            apps = [self.AppInformation(app[0], app[1], app[2], app[3]) for app in csv_reader]
+        return apps
 
     @property
-    def ios_apps_path(self):
-        return
+    def android_apps_absolute_path(self):
+        return [f'{spy.ambassador_path}\\data\\apps\\android\\{app.app_filename}' for app in self.apps_information if app.app_type == 'android']
