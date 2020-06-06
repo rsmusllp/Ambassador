@@ -15,16 +15,23 @@ class Engine:
         if not its.py_v3:
             print('[-] the Python version is too old (minimum required is 3.5)')
             return
+        if its.on_windows:
+            self.android_installer = f'{spy.ambassador_path}\\data\\bins\\adb\\windows\\adb.exe'
+            self.ios_installer = f'{spy.ambassador_path}\\data\\bins\\ideviceinstaller\\windows\\ideviceinstaller.exe -i'
+
+    def dependency_check(self):
+        #todo: check to see if dependencies are installed.
+        pass
 
     def install_android_apps(self, apps_path):
         print('[?] Installing android applications onto the device.')
         for path in apps_path:
-            returncode, stdout, stderr = self.execute_command(f'{spy.ambassador_path}\\data\\bins\\adb\\windows\\adb.exe install {path}')
+            returncode, stdout, stderr = self.execute_command(self.android_installer + f' install {path}')
             if returncode:
-                print(f'[-] Command [ {spy.ambassador_path}\\data\\bins\\adb\\windows\\adb.exe install {path} ] failed to run')
+                print(f'[-] Command [ ' + self.android_installer + f' install {path} ] failed to run')
                 #todo: print stdout and stderr when a command fails
                 return
-            print(f'[+] Command [ {spy.ambassador_path}\\data\\bins\\adb\\windows\\adb.exe install {path} ] ran successfully.')
+            print(f'[+] Command [ ' + self.android_installer + f' install {path} ] ran successfully.')
 
     def install_frida_server(self):
         # todo: Need to figure out how to install frida as no APK is offered.
@@ -33,12 +40,12 @@ class Engine:
     def install_ios_apps(self, apps_path):
         print('[?] Installing ios applications onto the device.')
         for path in apps_path:
-            returncode, stdout, stderr = self.execute_command(f'{spy.ambassador_path}\\data\\bins\\ideviceinstaller\\windows\\ideviceinstaller.exe -i {path}')
+            returncode, stdout, stderr = self.execute_command(self.ios_installer + f' {path}')
             if returncode:
-                print(f'[-] Command [ {spy.ambassador_path}\\data\\bins\\ideviceinstaller\\windows\\ideviceinstaller.exe -i {path} ] failed to run')
+                print(f'[-] Command [ ' + self.ios_installer + f' {path} ] failed to run')
                 # todo: print stdout and stderr when a command fails
                 return
-            print(f'[+] Command [ {spy.ambassador_path}\\data\\bins\\ideviceinstaller\\windows\\ideviceinstaller.exe -i {path} ] ran successfully.')
+            print(f'[+] Command [ ' + self.ios_installer + f' {path} ] ran successfully.')
 
     @staticmethod
     def execute_command(command):
