@@ -1,4 +1,4 @@
 import os
 
-ambassador_path = os.getcwd()
+ambassador_path = f'{__file__}\\..\\..'
 """returns the current absolute path"""
