@@ -1,11 +1,31 @@
 # Ambassador
+![Issues Open](https://img.shields.io/github/issues/rsmusllp/ambassador)
+Ambassador is a tool for rapidly provisioning mobile devices for use in mobile security services.
+------
+### First time usage
+```
+# Clone down the repository.
+git clone https://github.com/rsmusllp/Ambassador
+# Install paramiko dependency
+pip install paramiko
+# Run Ambassador
+python Ambassador.py -h 
+```
+------
+### Technical Details 
+Starting Ambassador requires a csv file entitled `apps-information.csv` to be located within `{ambassador-root-dir}\data\docs\`. Ambassador parses this file to retreivie neccessary information to properly install provision the mobile devices with the appropriate application(s). 
 
-### How To
-- Todo
+##### apps-information.csv format
+| Title           | Example (1)                         | Example (2)                         | Description                                                                                                                                                        |
+|-----------------|-------------------------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| app_name        | The RSM App                         | The RSM App                         | The application identifier.                                                                                                                                        |
+| app_platform    | Android                             | IOS                                 | The platform the application runs on.                                                                                                                              |
+| app_type        | File                                | Package                             | This value can have two values (file or package). Files are APK(s) or IPA(s) to be installed through IDB or ADB. Packages are hosted through aptitude.             |
+| app_installer   | The_RSM_App.apk                     | com.rsm.rsmapp                      | This value either needs to be the file name for the IPA or APK to be installed through a debugging bridge or the package identifier as specified through aptitude. |
+| app_url         | https://rsm.com/TheRSMApp.apk       | N/A                                 | The URL to retrieve the application from (N/A if a package).                                                                                                       |
+| app_description | Example Application for Ambassador. | Example Application for Ambassador. | The description to be displayed beside the app_name when a user uses the `--help-apps` flag. 
 
-### Technical Details
 
-- Checks to see if all apps are installed specified by ambassador/docs/apps-information.csv field 4.
-- If the check fails then it runs install_apps with a list of the non-updated apps. (Currently only checks the android apps).
-- Once all apps are are installed it'll check to see if you're installing and android app or ios app and will pass a list of the respected app paths to an install function.
-- Tool exits. 
+
+
+
