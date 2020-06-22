@@ -1,4 +1,5 @@
 # Ambassador
+
 ![Issues Open](https://img.shields.io/github/issues/rsmusllp/ambassador)
 Ambassador is a tool for rapidly provisioning mobile devices for use in mobile security services.
 ------
@@ -15,7 +16,7 @@ python Ambassador.py -h
 ### Technical Details 
 Starting Ambassador requires a csv file entitled `apps-information.csv` to be located within `{ambassador-root-dir}\data\docs\`. Ambassador parses this file to retreivie neccessary information to properly install provision the mobile devices with the appropriate application(s). 
 
-##### apps-information.csv format
+#### apps-information.csv format
 | Title           | Example (1)                         | Example (2)                         | Description                                                                                                                                                        |
 |-----------------|-------------------------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | app_name        | The RSM App                         | The RSM App                         | The application identifier.                                                                                                                                        |
