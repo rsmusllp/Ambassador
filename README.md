@@ -1,6 +1,7 @@
 # Ambassador
 
 ![Issues Open](https://img.shields.io/github/issues/rsmusllp/ambassador)
+
 Ambassador is a tool for rapidly provisioning mobile devices for use in mobile security services.
 ------
 ### First time usage
